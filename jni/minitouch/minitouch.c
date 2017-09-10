@@ -793,8 +793,9 @@ int main(int argc, char* argv[])
 
       cursor = (char*) &io_buffer;
       cursor += 1;
-
-      switch (io_buffer[0])
+      char cmd = io_buffer[0];
+      printf("cmd %c\n", cmd);
+      switch (cmd)
       {
         case 'c': // COMMIT
           commit(&state);
@@ -823,6 +824,16 @@ int main(int argc, char* argv[])
         case 'w':
           wait = strtol(cursor, &cursor, 10);
           usleep(wait * 1000);
+          break;
+        case 'h': // HOME
+          system("input keyevent KEYCODE_HOME");
+          printf("home");
+          break;
+        case 'e': // MENU
+          system("input keyevent KEYCODE_MENU");
+          break;
+        case 'b': // BACK
+          system("input keyevent KEYCODE_BACK");
           break;
         default:
           break;
